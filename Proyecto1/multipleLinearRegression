@@ -1,0 +1,67 @@
+"""
+    CI-5437 Inteligencia Artificial II
+    Daniel Marín 10-10419
+    Dayana Rodrigues 10-10615
+    Luis Carlos <apellido> <carnet>
+
+    Implementación del algoritmo de Descenso del Gradiente
+    para la resolución de una Regresión Lineal Múltiple.
+
+"""
+
+import numpy as np
+
+max_iter = 1000
+
+def multiple_linear_regression(values, attr, alpha, max_iter):
+
+    converge = False
+    no_values = len(values) # rango
+    no_attr = attr.shape[1] # dominio
+    theta = [0]* no_values
+    coef_vector = np.random.random(no_attr)
+    iter_coef =[]
+
+    it = 0
+    while (not(converge) and it < max_iter):
+        for i in range(no_values):
+            error = h(coef_vector, attr[i,:]) - values
+
+            for j in range(no_attr):
+                theta[j] = np.dot(error, attr[:,j])
+
+            cost = cost(attr,coef_vector, theta, values)
+            iter_coef.append(cost)
+            it +=1
+
+    return ()
+
+# función de costo
+
+def cost(values, coef_vector, attr):
+    cost = 0
+    for i in range(len(attr)):
+        cost += (h(coef_vector[i], attr[i]) - values[i])^2
+
+    return (cost/len(attr))
+
+def derivated_cost(values, coef_vector, attr, alpha):
+    cost = 0
+    for i in range(len(attr)):
+        aux_cost = np.dot(h(coef_vector[i], attr[i]) - values[i]),
+
+# función auxiliar para el producto punto
+
+def h(coef, values):
+    return np.dot(coef, values)
+
+# función que normaliza los datos
+
+def normalization(data_matrix):
+    max_value = np.max(data_matrix) #maximo valor de la matriz
+    (n,m) = data_matrix.shape
+    for i in range(m):
+        data_matrix[:,i] = (data_matrix[:,i]/max_value)
+
+    return data_matrix
+
