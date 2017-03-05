@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import random
 
-nombre_archivo = "datos500.txt"
+nombre_archivo = "datosP2EM2017/datos500.txt"
 
 archivo = open(nombre_archivo, 'w')
 
@@ -19,7 +19,7 @@ for i in range(0,500):
 	archivo.write(str(x) + " " + str(y) + " " + str(r) + "\n")
 
 
-nombre_archivo = "datos1000.txt"
+nombre_archivo = "datosP2EM2017/datos1000.txt"
 
 archivo = open(nombre_archivo, 'w')
 
@@ -37,7 +37,7 @@ for i in range(0,1000):
 	archivo.write(str(x) + " " + str(y) + " " + str(r) + "\n")
 
 
-nombre_archivo = "datos2000.txt"
+nombre_archivo = "datosP2EM2017/datos2000.txt"
 
 archivo = open(nombre_archivo, 'w')
 
