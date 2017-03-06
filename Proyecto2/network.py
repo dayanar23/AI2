@@ -82,7 +82,7 @@ def train(network, train, l_rate, n_epoch, n_outputs):
 			sum_error += 0.5*sum([(expected[i]-outputs[i])**2 for i in range(len(expected))])
 			backpropagation(network, expected)
 			update_weights(network, row, l_rate)
-			print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
+			#print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
 		if(abs(err[-1:] - sum_error) < ep):
 			nconverge = False
 		err.append(sum_error)
@@ -91,8 +91,16 @@ def train(network, train, l_rate, n_epoch, n_outputs):
 
 def predict(network,train,n_outputs):
 	sum_error = 0
+	val = []
 	for row in train:
 		outputs = forwardpropagation(network, row)
+		print(outputs)
 		expected = [0 for i in range(n_outputs)]
 		sum_error += 0.5*sum([(expected[i]-outputs[i])**2 for i in range(len(expected))])
-	return(1/train.shape[0])*sum_error
+		val.append(outputs)
+	for i in range(0,len(val)):
+		if(val[i][0] < 0.5):
+			val[i][0]= 0
+		else:
+			val[i][0] = 1
+	return((1/train.shape[0])*sum_error, np.array(val))

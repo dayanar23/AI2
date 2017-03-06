@@ -25,14 +25,14 @@ def ejercicio2():
 			n_outputs = len(set([row[-1] for row in train_set]))
 			print(n_outputs)
 			network = init_network(n_inputs,int(no),n_outputs)
-			#net, err, i = train(network, train_set, 0.1, 1000, n_outputs)
-			#print((1/train_set.shape[0])*sum(err))
-			"""plt.figure(1)
+			net, err, i = train(network, train_set, 0.1, 1000, n_outputs)
+			print((1/train_set.shape[0])*sum(err))
 			print(i)
+			errt, val = predict(net,train_set,n_outputs)
+			print(errt)
+			plt.figure(1)
 			plt.plot(np.arange(0,i), err)
 			plt.show()
-			val = net.predict(train_set)"""
-
 		elif opcion == "2":
 			train_set = np.array(np.loadtxt('datosP2EM2017/datos_P2_EM2017_N1000.txt'),dtype=np.float)
 			train_set = train_set/train_set.max(axis=0)
