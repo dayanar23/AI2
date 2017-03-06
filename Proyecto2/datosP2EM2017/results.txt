@@ -1,0 +1,87 @@
+Tabla 2
+4 - 50
+Tiempo de Entrenamiento: 24.559
+Error: 0.000
+Efectividad: 72/75
+
+4 - 60
+Tiempo de Entrenamiento: 30.492
+Error: 0.000
+Efectividad: 59/60
+
+5 - 50
+
+5 - 60
+
+5 - 70
+
+5 - 80
+
+5 - 90
+
+6 - 50
+
+6 - 60
+
+6 - 70
+
+6 - 80
+
+6 - 90
+
+7 - 50
+
+7 - 60
+
+7 - 70
+
+7 - 80
+
+7 - 90
+
+8 - 50
+
+8 - 60
+
+8 - 70
+
+8 - 80
+
+8 - 90
+
+9 - 50
+
+9 - 60
+
+9 - 70
+
+9 - 80
+
+9 - 90
+
+10 - 50
+Tiempo de Entrenamiento: 62.795
+Error: 0.000
+Efectividad: 72/75
+
+10 - 60
+Tiempo de Entrenamiento: 69.286
+Error: 0.000
+Efectividad: 59/60
+
+10 - 70
+Tiempo de Entrenamiento: 84.394
+Error: 0.000
+Efectividad: 45/45
+
+10 - 80 
+Tiempo de Entrenamiento: 96.500
+Error: 0.000
+Efectividad: 30/30
+
+10 - 90
+Tiempo de Entrenamiento: 107.443
+Error: 0.000
+Efectividad: 14/15
+
+

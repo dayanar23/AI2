@@ -17,6 +17,9 @@ def d_sigmoidal(x):
 
 	return x*(1-x)
 
+def d_tangenteh(x):
+
+	return 1-(np.tanh(x)**2)
 
 #funcion de error de la red para el patron n
 # Y vector de salida de la red para el patrón
