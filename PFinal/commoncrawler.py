@@ -106,8 +106,8 @@ def extract_external_links(html_content,link_list):
         for link in links:
             #href = link.attrs.get("href")
             href = link.contents
-            if href is not None:
-                
+            if href is not None:   
+                print href
                 #if domain not in href:
                 #    if href not in link_list and href.startswith("http"):
                 #        print "[*] Discovered external link: %s" % href
