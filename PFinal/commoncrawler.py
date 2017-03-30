@@ -71,6 +71,7 @@ def download_page(record):
     
     # We can then use the Range header to ask for just this set of bytes
 
+    print prefix
     # SE CAE AQUI
     resp = requests.get(prefix + record['filename'], headers={'Range': 'bytes={}-{}'.format(offset, offset_end)})
     print resp
@@ -96,50 +97,76 @@ def download_page(record):
 # Extract links from the HTML  
 #
 def extract_external_links(html_content,link_list):
-
     parser = BeautifulSoup(html_content)
         
-    links = parser.find_all("title")
-    
-    if links:
-        
+    title = parser.find_all("title")
+    links = parser.find_all("a")
+
+    if links: 
         for link in links:
             #href = link.attrs.get("href")
             href = link.contents
             if href is not None:   
-                print href
-                #if domain not in href:
-                #    if href not in link_list and href.startswith("http"):
+                # if domain not in href:
+                #     print(href)
+                #     if href not in link_list and href.startswith("http"):
                 #        print "[*] Discovered external link: %s" % href
                 #        link_list.append(href)
 
                 link_list.append(href)
 
+    
     return link_list
 
+def extract_text(html_content):
+    parser = BeautifulSoup(html_content)
 
+    for script in parser(["script", "style"]):
+        script.extract()    # rip it out
+
+    text = parser.get_text()
+    text = " ".join(text.split())        
+    #text = parser.text()
+    return text
+
+def visible(element):
+    if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+        return False
+    return True
 
 
 record_list = search_domain(domain)
+record = record_list[1]
 link_list   = []
 
-for record in record_list:
+html_content = download_page(record)
+
+print "[*] Retrieved %d bytes for %s" % (len(html_content),record['url'])
+
+link_list = extract_external_links(html_content,link_list)
+text = extract_text(html_content)
+
+print(text)
+
+# for record in record_list:
     
-    html_content = download_page(record)
+#     html_content = download_page(record)
     
-    print "[*] Retrieved %d bytes for %s" % (len(html_content),record['url'])
+#     print "[*] Retrieved %d bytes for %s" % (len(html_content),record['url'])
     
-    link_list = extract_external_links(html_content,link_list)
+#     link_list = extract_external_links(html_content,link_list)
+#     text = extract_text(html_content)
     
 
 print "[*] Total external links discovered: %d" % len(link_list)
 
 with codecs.open("%s-links.csv" % domain,"wb",encoding="utf-8") as output:
 
-    fields = ["URL"]
+    fields = ["text"]
     
     logger = csv.DictWriter(output,fieldnames=fields)
     logger.writeheader()
     
-    for link in link_list:
-        logger.writerow({"URL":link})
+    logger.writerow({"text":text})
+    # for link in link_list:
+    #     logger.writerow({"URL":link})
