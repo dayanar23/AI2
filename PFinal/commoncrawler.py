@@ -21,9 +21,8 @@ args = vars(ap.parse_args())
 domain = args['domain']
 
 # list of available indices
-index_list = ["2014-52","2015-06","2015-11","2015-14","2015-18","2015-22","2015-27", "2017-09", "2017-04",
-                "2016-50", "2016-44", "2016-40", "2016-36", "2016-30", "2016-26",
-                "2016-22", "2016-18", "2016-07", "2015-48", "2015-40", "2015-35", "2015-32"]
+index_list = [ "2017-09", "2017-04","2016-50", "2016-44", "2016-40", "2016-36", "2016-30", 
+                "2016-26", "2016-22", "2016-18", "2016-07"]
 #
 # Searches the Common Crawl Index for a domain.
 #
@@ -73,6 +72,7 @@ def download_page(record):
 
     # SE CAE AQUI
     resp = requests.get(prefix + record['filename'], headers={'Range': 'bytes={}-{}'.format(offset, offset_end)})
+
     print resp
     # The page is stored compressed (gzip) to save space
     # We can extract it using the GZIP library
