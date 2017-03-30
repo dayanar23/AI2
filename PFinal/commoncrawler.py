@@ -99,7 +99,6 @@ def download_page(record):
 def extract_external_links(html_content,link_list):
     parser = BeautifulSoup(html_content)
         
-    title = parser.find_all("title")
     links = parser.find_all("a")
 
     if links: 
@@ -117,6 +116,11 @@ def extract_external_links(html_content,link_list):
 
     
     return link_list
+
+def extract_title(html_content):
+    parser = BeautifulSoup(html_content)
+    title = parser.find_all("title")
+    return title[0].contents[0].encode('ascii','ignore')
 
 def extract_text(html_content):
     parser = BeautifulSoup(html_content)
@@ -145,8 +149,8 @@ print "[*] Retrieved %d bytes for %s" % (len(html_content),record['url'])
 
 link_list = extract_external_links(html_content,link_list)
 text = extract_text(html_content)
-
-print(text)
+title = extract_title(html_content)
+#print(text)
 
 # for record in record_list:
     
@@ -162,11 +166,11 @@ print "[*] Total external links discovered: %d" % len(link_list)
 
 with codecs.open("%s-links.csv" % domain,"wb",encoding="utf-8") as output:
 
-    fields = ["text"]
+    fields = ["domain","title","text"]
     
     logger = csv.DictWriter(output,fieldnames=fields)
     logger.writeheader()
     
-    logger.writerow({"text":text})
+    logger.writerow({"domain":domain,"title":title,"text":text})
     # for link in link_list:
     #     logger.writerow({"URL":link})
