@@ -103,14 +103,11 @@ def download_page(record):
 # Extract title from the HTML  
 #
 
+
 def extract_title(html_content):
     parser = BeautifulSoup(html_content)
     title = parser.find_all("title")
-    return title[0].contents[0].encode('ascii','ignore')
-
-#
-# Extract text from the HTML  
-#
+    return title[0].contents[0].encode('ascii','ignore').strip("\n")
 
 def extract_text(html_content):
     parser = BeautifulSoup(html_content)
@@ -134,7 +131,7 @@ for i in range(0,60):
 for i in range(0, 60):
     values.append("0")
 
-with codecs.open("data.csv","wb",encoding="utf-8") as output:
+with codecs.open("data1.csv","wb",encoding="utf-8") as output:
 
     fields = ["domain","title","text", "value"]
         
@@ -148,11 +145,11 @@ with codecs.open("data.csv","wb",encoding="utf-8") as output:
 
         html_content = download_page(record)
 
-        print "[*] Retrieved %d bytes for %s" % (len(html_content),record['url'])
-
         text = extract_text(html_content)
         title = extract_title(html_content)
-
-        
-        logger.writerow({"domain":domain,"title":title,"text":text,"value":values[i]})
+    
+        logger = csv.DictWriter(output,fieldnames=fields)
+        logger.writeheader()
+    
+        logger.writerow({"domain":domain,"title":title,"text":text, "value":values[i]})
         i = i+1
