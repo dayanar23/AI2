@@ -24,7 +24,7 @@ file = args['domain']
 with open(file) as f:
     content = f.readlines()
 
-domains = [x.strip() for x in content] 
+domains = [x.strip("\n") for x in content] 
 
 values = []
 
@@ -106,7 +106,7 @@ def download_page(record):
 def extract_title(html_content):
     parser = BeautifulSoup(html_content)
     title = parser.find_all("title")
-    return title[0].contents[0].encode('ascii','ignore')
+    return title[0].contents[0].encode('ascii','ignore').strip("\n")
 
 #
 # Extract text from the HTML  
@@ -119,8 +119,8 @@ def extract_text(html_content):
         script.extract()    # rip it out
 
     text = parser.get_text()
-    text = " ".join(text.split())        
-    text = text.replace("\"", "\\\"")
+    text = text.replace("\"", "\'")
+    text = " ".join(text.split())
     return text
 
 def visible(element):
@@ -154,5 +154,5 @@ with codecs.open("data.csv","wb",encoding="utf-8") as output:
         title = extract_title(html_content)
 
         
-        logger.writerow({"domain":domain,"title":title,"text":text, "value":values[i]})
+        logger.writerow({"domain":domain,"title":title,"text":text,"value":values[i]})
         i = i+1
