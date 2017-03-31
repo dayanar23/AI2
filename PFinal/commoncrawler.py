@@ -24,7 +24,7 @@ file = args['domain']
 with open(file) as f:
     content = f.readlines()
 
-domains = [x.strip("\n") for x in content] 
+domains = [x.rstrip("\n") for x in content] 
 
 values = []
 
@@ -106,7 +106,7 @@ def download_page(record):
 def extract_title(html_content):
     parser = BeautifulSoup(html_content)
     title = parser.find_all("title")
-    return title[0].contents[0].encode('ascii','ignore').strip("\n")
+    return title[0].contents[0].encode('ascii','ignore')
 
 #
 # Extract text from the HTML  
